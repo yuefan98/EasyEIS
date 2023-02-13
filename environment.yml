@@ -3,7 +3,7 @@ channels:
   - defaults
 dependencies:
   - python
-  - numpy
+  - numpy == 1.19.5
   - altair
   - pandas
   - scipy
