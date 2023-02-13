@@ -1,0 +1,12 @@
+name: easy_eis
+channels:
+  - defaults
+dependencies:
+  - python
+  - numpy
+  - scikit-learn
+  - scipy
+  - pip
+  - pip:
+    - impedance
+    - streamlit
