@@ -87,7 +87,7 @@ EEC_download = st.download_button(
 )
 circ_str_0 = circ_str.replace('*', '-')
 elem_dic ={'R':0,'C':0,'W':0}
-p_num = {'R':1,'C':1,'W':2}
+p_num = {'R':1,'C':1,'W':1}
 circ_str_1 = '' 
 num_initial_guess = 0
 for i in range (len(circ_str)):
