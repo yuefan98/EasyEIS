@@ -110,12 +110,12 @@ circuit_1 = CustomCircuit(circ_str_1,initial_guess=initial_guess_1)
 if uploaded_file is not None:
     fig, ax = plt.subplots()
     f, Z = impedance_data_processing(uploaded_file,option)
-    plot_nyquist(ax=ax, Z,label='data')
+    plot_nyquist(ax, Z,label='data')
     if st.button('Fit'):
     # if agree:
         circuit_1.fit(f,Z)
         Z_fit = circuit_1.predict(f)
-        plot_nyquist(ax=ax, Z_fit,label = 'fit')
+        plot_nyquist(ax, Z_fit,label = 'fit')
     plt.legend()
     plt.tight_layout()
         
