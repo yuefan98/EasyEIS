@@ -8,13 +8,10 @@ Created on Tue Jan 31 13:10:00 2023
 
 import streamlit as st
 import numpy as np 
-import pandas as pd
 import scipy
 import matplotlib.pyplot as plt
 from impedance.models.circuits import CustomCircuit
 from impedance.validation import linKK
-import schemdraw
-import schemdraw.elements as elm
 from  easy_eis import *
 from io import StringIO, BytesIO
 from impedance.visualization import plot_nyquist
