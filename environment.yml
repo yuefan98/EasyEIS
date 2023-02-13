@@ -3,11 +3,11 @@ channels:
   - defaults
 dependencies:
   - python
-  - numpy == 1.19.5
+  - numpy
   - altair
   - pandas
   - scipy
   - pip
   - pip:
-    - impedance == 1.4.0
+    - impedance
     - streamlit
