@@ -9,6 +9,7 @@ dependencies:
   - scipy
   - pip
   - pip:
+    - matplotlib == 3.4.3
     - impedance
     - streamlit
-    - matplotlib == 3.4.3
+    
