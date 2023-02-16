@@ -7,8 +7,8 @@ dependencies:
   - altair
   - pandas
   - scipy
-  - matplotlib == 3.4.3
   - pip
   - pip:
     - impedance
     - streamlit
+    - matplotlib == 3.4.3
