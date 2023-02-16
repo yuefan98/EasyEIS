@@ -45,9 +45,7 @@ if len(circ_str) > 0:
             EEC.line()
         if 'p' == elem[0]:
             elem_name = elem.replace('p', '').replace('(', '').replace(')', '').split(',')
-            print(elem_name)
             elem_name_up = elem_name[0].split('*')
-            print(len(elem_name_up))
             elem_name_low = elem_name[1].split('*')
             elem_up = []
             elem_low = []
