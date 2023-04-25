@@ -37,16 +37,23 @@ with st.sidebar:
     st.write('Welcome to Easy EIS, an impedance learning tool built based on impedance.py')
     info = st.selectbox(
         'Please select one to start:',
-        ('Information', 'EIS analyzer', 'Nonlinear EIS analyzer'))
+        ('Information', 'EIS analyzer','EIS Dynamic Visualization', 'Nonlinear EIS analyzer'))
+
     if info == 'EIS analyzer':
         uploaded_file = st.file_uploader("Choose a file")
         option = st.radio(
             "Do you want to show the negative impedance value",
             ('Yes', 'No'),horizontal=True)
         agree = st.checkbox('Fit your model')    
+    if info == 'EIS Dynamic Visualization':
+        uploaded_file = st.file_uploader("Choose a file")
+        option_neg = st.radio(
+            "Do you want to show the negative impedance value",
+            ('Yes', 'No'),index =1, horizontal=True)
 ##############################
 #EIS Start
 ###############################
+parm = []
 if info == 'EIS analyzer':
 
     
@@ -125,13 +132,14 @@ if info == 'EIS analyzer':
             circ_str_1 += str(elem_dic[circ_str_0[i]])
             elem_dic[circ_str_0[i]] +=1
             num_initial_guess += p_num[circ_str_0[i]]
-            
+    st.session_state['circ_str_1']= circ_str_1
     ##
     default_guess = np.ones(num_initial_guess)*0.01
     default_guess = str(default_guess).replace(' ',',').replace('[','').replace(']','')
     initial_guess = st.text_input('Please input the initial guess or use the default value', default_guess)
     list1=list(initial_guess.split(','))
     initial_guess_1 = list(map(float,list1))
+
     ##
     # agree = st.checkbox('Fit')
     circuit_1 = CustomCircuit(circ_str_1,initial_guess=initial_guess_1)
@@ -145,6 +153,8 @@ if info == 'EIS analyzer':
             start = time.time()
             circuit_1.fit(f,Z)
             Z_fit = circuit_1.predict(f)
+
+            st.session_state['parm'] = circuit_1.parameters_
             plot_nyquist(Z_fit,ax=ax,label = 'fit',fmt = '-o')
             end = time.time()
             
@@ -187,3 +197,37 @@ plt.show()
 ##############################
 #EIS End
 ###############################
+#EIS Dynamic visualization 
+###############################
+if info == 'EIS Dynamic Visualization':
+    if uploaded_file is not None:
+        parm = st.session_state['parm'] 
+
+        col11, col22 = st.columns(2) 
+        with col11:
+            for i in range(len(parm)):
+                globals()[f'p{i}']=st.slider('p'+str(i), float(parm[i])/2, float(parm[i])*2, float(parm[i]),step=float(parm[i])/10)
+    
+        with col22:
+            
+            initial_guess = np.zeros(len(parm))
+            for i in range(len(parm)):
+                initial_guess[i]= eval('p'+str(i))
+            
+            fig, ax = plt.subplots()
+
+            f,Z= impedance_data_processing(uploaded_file,option_neg)
+            plot_nyquist(Z,ax =ax, label='data', fmt = 'o')
+            circuit_2 = CustomCircuit(st.session_state['circ_str_1'],initial_guess=initial_guess)
+        
+            Z_fit = circuit_2.predict(f)
+            plot_nyquist(Z_fit,ax=ax,label = 'fit',fmt = '-o')
+            plt.legend()
+            plt.tight_layout()
+            st.pyplot(fig)
+            
+###############################
+#EIS Dynamic visualization end 
+###############################
+    
+    
