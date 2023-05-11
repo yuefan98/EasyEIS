@@ -8,6 +8,7 @@ Created on Tue Jan 31 13:10:00 2023
 
 import streamlit as st
 import numpy as np 
+import pandas as pd
 import scipy
 import matplotlib.pyplot as plt
 from impedance.models.circuits import CustomCircuit
@@ -50,9 +51,76 @@ with st.sidebar:
         option_neg = st.radio(
             "Do you want to show the negative impedance value",
             ('Yes', 'No'),index =1, horizontal=True)
+############################## 
+#Information start
+##############################
+
+circuit_element = [['Resistor', 'R'], ['Capacitor', 'C'], ['Warburg element', 'W']]
+circuit_element_df = pd.DataFrame(circuit_element, columns = ['Circuit Element', 'Symbol'])
+
+# CSS to inject contained in a string
+hide_table_row_index = """
+            <style>
+            tbody th {display:none}
+            .blank {display:none}
+            </style>
+            """
+
+# Inject CSS with Markdown
+st.markdown(hide_table_row_index, unsafe_allow_html=True)
+
+if info == 'Information':
+    st.title('Welcome to Easy EIS !')
+    '''Easy EIS provides an open access analysis and visualization tool for beginner to understand the fundamental impedance analysis.
+    This program is developed based on the fundation of [impedance.py](https://impedancepy.readthedocs.io/en/latest/). 
+    One important aspect of this program is to provide an user interface for impedance.py.
+    The author of this program would like to direct the user to use impedance.py to pipeline their analysis  
+   Eventually, nonlinear EIS analysis and visualization will be supported to bring in the lastest reasearch result we have found in our lab'''  
+    '''Please read through descriptions to learn about the functionality of this program.'''
+    '''
+    Please visit my [GitHub](https://github.com/yuefan98/EasyEIS) for more information!
+    '''
+    st.subheader('EIS Analyzer')
+    with st.expander(''):
+        '''
+        Currently, this program supports three fundamental circuit element for impedance analysis as shown in the table below. 
+        '''
+        colt1, colt2, colt3 = st.columns(3)
+        with colt1:
+            st.table(circuit_element_df)
+        with colt2:
+            st.write("")
+
+        with colt3:
+            st.write('')
+        '''
+        Series and parallel circuit are supported follows the convention used by impedance.py. 
+        For example, a series of resistor can be represented by 'R-R'. The Randles circuit can be represented by p(R,C).
+        The diffusion impedance is introduced through the coupling of charge transfer resistance and Warburg element.
+        An Randles circuit with diffusion hinderance can be represented by p(R*W,C)
+        '''
+    st.subheader('EIS Dynamic Visualization')
+    with st.expander(''):
+        '''After obtaining best fit parameters from EIS analyzer, this functionality will enable you to explore 
+        the sensitivity of the EIS spectrum with respect to the change of physical parameters.
+       '''
+        '''The main purpose of the dynamic visualization is to enable users to understand fundamentals of physcis based EIS model.
+        i.e. in Randles circuit, the charge transfer reistance defines the width of the semi-circle, 
+        and RC defines the characteristic time constant.
+       '''
+    st.subheader('Nonlinear EIS Analyzer')
+    with st.expander(''):
+         '''
+         The nonlinear EIS analyzer will bring in state of art model for NLEIS developed in our lab. This will be supported in the future!
+        '''
+############################## 
+#Information end
+##############################
+
 ##############################
 #EIS Start
 ###############################
+
 parm = []
 if info == 'EIS analyzer':
 
@@ -102,12 +170,12 @@ if info == 'EIS analyzer':
                     
                 EEC.p(elem_up,elem_low)
                 EEC.line()
-                ny += 1
+                # ny += 1
         
             nx += 0.5
     
         EEC.line()
-        image_bytes = EEC.getimage(w=5*nx,h=1*ny,fmt='jpg')
+        image_bytes = EEC.getimage(w=5*nx,h=2*ny,fmt='jpg')
         st.image(image_bytes)
     else:
         st.error('This is an error', icon="🚨")
@@ -229,5 +297,13 @@ if info == 'EIS Dynamic Visualization':
 ###############################
 #EIS Dynamic visualization end 
 ###############################
+
+###############################
+#Nonlinear EIS analyzer start
+###############################
+
+if info =='Nonlinear EIS analyzer':
     
+    st.title('This functionality is currently under construction, and will be supported in the future !')
+
     
