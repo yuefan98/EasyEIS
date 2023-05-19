@@ -99,12 +99,12 @@ if info == 'Information':
         The diffusion impedance is introduced through the coupling of charge transfer resistance and Warburg element.
         An Randles circuit with diffusion hinderance can be represented by p(R*W,C)
         '''
-    st.subheader('EIS Dynamic Visualization')
+    st.subheader('EIS Interactive Visualization')
     with st.expander(''):
         '''After obtaining best fit parameters from EIS analyzer, this functionality will enable you to explore 
         the sensitivity of the EIS spectrum with respect to the change of physical parameters.
        '''
-        '''The main purpose of the dynamic visualization is to enable users to understand fundamentals of physcis based EIS model.
+        '''The main purpose of the Interactive visualization is to enable users to understand fundamentals of physcis based EIS model.
         i.e. in Randles circuit, the charge transfer reistance defines the width of the semi-circle, 
         and RC defines the characteristic time constant.
        '''
