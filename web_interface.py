@@ -38,7 +38,7 @@ with st.sidebar:
     st.write('Welcome to Easy EIS, an impedance learning tool built based on impedance.py')
     info = st.selectbox(
         'Please select one to start:',
-        ('Information', 'EIS analyzer','EIS Dynamic Visualization', 'Nonlinear EIS analyzer'))
+        ('Information', 'EIS analyzer','EIS Interactive Visualization', 'Nonlinear EIS analyzer'))
 
     if info == 'EIS analyzer':
         uploaded_file = st.file_uploader("Choose a file")
@@ -46,7 +46,7 @@ with st.sidebar:
             "Do you want to show the negative impedance value",
             ('Yes', 'No'),horizontal=True)
         agree = st.checkbox('Fit your model')    
-    if info == 'EIS Dynamic Visualization':
+    if info == 'EIS Interactive Visualization':
         uploaded_file = st.file_uploader("Choose a file")
         option_neg = st.radio(
             "Do you want to show the negative impedance value",
