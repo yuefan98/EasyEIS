@@ -267,7 +267,7 @@ plt.show()
 ###############################
 #EIS Dynamic visualization 
 ###############################
-if info == 'EIS Dynamic Visualization':
+if info == 'EIS Interactive Visualization':
     if uploaded_file is not None:
         parm = st.session_state['parm'] 
 
